@@ -1,0 +1,25 @@
+<div style="direction: rtl; font-family: Arial, sans-serif; width: 100%;">
+    <h1 style="text-align: center;">معلومات طلب تعميد</h1>
+    <div style="display: flex; justify-content: space-between; margin-top: 30px">
+        <p><strong>أسم مقدم الطلب:</strong> ${req.user.userName}</p>
+        <p><strong>مبلغ التعميد:</strong> ${servicePrice} ريال</p>
+    </div>
+    <div style="display: flex; justify-content: space-between; ;margin-top: 30px;">
+        <p><strong>رقم الواتساب الخاص بمقدم الطلب:</strong> ${whatsAppUser}</p>
+        <p><strong>فترة التعميد بالأيام:</strong> ${baptismPeriod}</p>
+
+    </div>
+    <p style="margin-top: 30px"><strong>رقم الواتساب الخاص بمقدم الخدمة:</strong> ${whatsAppServicProvider}</p>
+    <p style="text-align: center;">© تعميد عبر منصة شركة الاولئ للوساطة المعتمدة في السعودية.</p>
+</div>
+
+<div style="direction: rtl; font-family: Arial, sans-serif; width: 100%;">
+    <h1 style="text-align: center;">إلغاء طلب التعميد</h1>
+    <p>نأسف لإبلاغك بأنه تم إلغاء طلب التعميد رقم: ${baptismRequest.baptismNumber}.</p>
+    <p><strong>أسم مقدم الطلب:</strong> ${baptismRequest.applicantName}</p>
+    <p><strong>رقم الواتساب الخاص بمقدم الطلب:</strong> ${baptismRequest.whatsAppUser}</p>
+    <p><strong>أسم مقدم الخدمة:</strong> ${baptismRequest.nameOfTheServiceProvider}</p>
+    <p><strong>رقم الواتساب الخاص بمقدم الخدمة:</strong> ${baptismRequest.whatsAppServicProvider}</p>
+    <p>لقد تم إلغاء هذا الطلب بناءً على طلبك. نشكرك على استخدام خدماتنا.</p>
+    <p style="text-align: center;">© تعميد عبر منصة شركة الاولئ للوساطة المعتمدة في السعودية.</p>
+</div>
