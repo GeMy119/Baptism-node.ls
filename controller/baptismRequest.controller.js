@@ -55,7 +55,7 @@ const createBaptismRequest = async (req, res) => {
                 <p><strong>مبلغ التعميد:</strong> ${servicePrice} ريال</p>
                 <p><strong>فترة التعميد بالأيام:</strong> ${baptismPeriod}</p>
                 <p><strong>يوم انتهاء التعميد:</strong> ${theDayTheBaptismEnded}</p>
-                <p style="text-align: center;">© تعميد عبر منصة شركة الاولئ للوساطة المعتمدة في السعودية.</p>
+                <p style="text-align: center;">© تعميد عبر منصة وسيط لخدمات التعميد.</p>
             </div>
         `;
 
@@ -103,7 +103,7 @@ const cancelBaptismRequest = async (req, res) => {
                 <p><strong>أسم مقدم الخدمة:</strong> ${baptismRequest.nameOfTheServiceProvider}</p>
                 <p><strong>رقم الواتساب الخاص بمقدم الخدمة:</strong> ${baptismRequest.whatsAppServicProvider}</p>
                 <p>لقد تم إلغاء هذا الطلب بناءً على طلبك. نشكرك على استخدام خدماتنا.</p>
-                <p style="text-align: center;">© تعميد عبر منصة شركة الاولئ للوساطة المعتمدة في السعودية.</p>
+                <p style="text-align: center;">© تعميد عبر منصة وسيط لخدمات التعميد.</p>
             </div>
         `;
 

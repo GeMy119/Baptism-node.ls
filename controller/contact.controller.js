@@ -21,7 +21,8 @@ const sendContact = async (req, res) => {
         const companyEmail = process.env.EMAIL_USER
         const companyMailOptions = {
             html: `
-                <p>مرحبًا،</p>
+            <div style="direction: rtl; font-family: Arial, sans-serif; width: 100%;">
+             <p style="text-align: center;">مرحبًا،</p>
                 <p>لقد تم تقديم طلب تواصل جديد من قبل:</p>
                 <ul>
                     <li><strong>الاسم:</strong> ${userName}</li>
@@ -29,8 +30,10 @@ const sendContact = async (req, res) => {
                     <li><strong>رقم الهاتف:</strong> ${phoneN}</li>
                     <li><strong>الموضوع:</strong> ${subject}</li>
                 </ul>
-                <p>برجاء متابعة الطلب في أقرب وقت.</p>
-                <p>تحياتي،<br>فريق منصة وسيط</p>
+                <p style="text-align: center;">مرحبًا برجاء متابعة الطلب في أقرب وقت.</p>
+                <p style="text-align: center;">مرحبًا تحياتي،<br>فريق منصة وسيط</p>
+            </div>
+               
             `
         };
 
@@ -38,7 +41,8 @@ const sendContact = async (req, res) => {
         const userMailSubject = 'تم استلام طلب التواصل الخاص بك'
         const userMailOptions = {
             html: `
-                <p>مرحبًا ${userName}،</p>
+            <div style="direction: rtl; font-family: Arial, sans-serif; width: 100%;">
+            <p style="text-align: center;">مرحبًا ${userName}،</p>
                 <p>شكرًا لتواصلك معنا. لقد تم استلام طلبك بنجاح وسنتواصل معك قريبًا.</p>
                 <p><strong>تفاصيل طلبك:</strong></p>
                 <ul>
@@ -47,7 +51,9 @@ const sendContact = async (req, res) => {
                     <li><strong>رقم الهاتف:</strong> ${phoneN}</li>
                     <li><strong>الموضوع:</strong> ${subject}</li>
                 </ul>
-                <p>تحياتي،<br>فريق منصة وسيط</p>
+                <p style="text-align: center;">تحياتي،<br>فريق منصة وسيط</p>
+            </div>
+                
             `
         };
 
