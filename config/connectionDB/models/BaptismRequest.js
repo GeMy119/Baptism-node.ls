@@ -22,20 +22,15 @@ const baptismRequestSchema = new mongoose.Schema(
 
 // Function to generate a unique number
 const generatebaptismNumber = async () => {
-    // This function should implement the logic to generate a unique number
-    // You could use a sequence, a random number, or any other strategy
-    const baptismNumber = `${Date.now()}`; // Example: using timestamp for simplicity
+    const now = new Date();
+    const year = now.getFullYear().toString().slice(-2); // آخر رقمين من السنة
+    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24).toString().padStart(3, '0'); // رقم اليوم في السنة
+    const randomPart = Math.floor(100 + Math.random() * 900).toString(); // جزء عشوائي بين 100 و 999
+
+    const baptismNumber = `${year}${dayOfYear}${randomPart}`;
     return baptismNumber;
 };
 
-// Pre-save hook to add the unique number
-baptismRequestSchema.pre('save', async function (next) {
-    if (this.isNew) {
-        this.baptismNumber = await generatebaptismNumber();
-    }
-    next();
-});
-
 // Create and export the model
 const BaptismRequest = mongoose.model('BaptismRequest', baptismRequestSchema);
-export default BaptismRequest;
+export { BaptismRequest, generatebaptismNumber };

@@ -1,4 +1,4 @@
-import BaptismRequest from '../config/connectionDB/models/BaptismRequest.js';
+import { BaptismRequest, generatebaptismNumber } from '../config/connectionDB/models/BaptismRequest.js';
 import sendEmail from '../config/sendEmail.js';
 import ApiError from '../utils/apiError.js';
 
@@ -27,27 +27,15 @@ const createBaptismRequest = async (req, res) => {
             throw new ApiError('All fields are required', 400);
         }
 
-        // Create a new BaptismRequest object
-        const newBaptismRequest = new BaptismRequest({
-            applicantName,
-            whatsAppUser,
-            nameOfTheServiceProvider,
-            whatsAppServicProvider,
-            servicePrice,
-            agreementDetails,
-            baptismPeriod,
-            theDayTheBaptismEnded
-        });
+        // Generate the baptism number before saving
+        const baptismNumber = await generatebaptismNumber();
 
-        // Save the new BaptismRequest to the database
-        const savedRequest = await newBaptismRequest.save();
-
-        // Prepare email content with the baptism number
+        // Prepare email content
         const emailSubject = 'طلب تعميد جديد';
         const emailHtml = `
-             <div style="direction: rtl; font-family: Arial, sans-serif; width: 100%;">
+            <div style="direction: rtl; font-family: Arial, sans-serif; width: 100%;">
                 <h1 style="text-align: center;">معلومات طلب تعميد</h1>
-                <p><strong>رقم التعميد:</strong> ${savedRequest.baptismNumber}</p>
+                <p><strong>رقم التعميد:</strong> ${baptismNumber}</p>
                 <p><strong>أسم مقدم الطلب:</strong> ${applicantName}</p>
                 <p><strong>رقم الواتساب الخاص بمقدم الطلب:</strong> ${whatsAppUser}</p>
                 <p><strong>أسم مقدم الخدمة:</strong> ${nameOfTheServiceProvider}</p>
@@ -59,8 +47,24 @@ const createBaptismRequest = async (req, res) => {
             </div>
         `;
 
-        // Send email
+        // Send email first before saving to the database
         await sendEmail(userEmail, emailSubject, emailHtml);
+
+        // After email is sent, create and save the BaptismRequest object
+        const newBaptismRequest = new BaptismRequest({
+            applicantName,
+            whatsAppUser,
+            nameOfTheServiceProvider,
+            whatsAppServicProvider,
+            servicePrice,
+            agreementDetails,
+            baptismPeriod,
+            theDayTheBaptismEnded,
+            baptismNumber
+        });
+
+        // Save the new BaptismRequest to the database
+        const savedRequest = await newBaptismRequest.save();
 
         // Send a success response
         res.status(201).json({ message: 'Baptism request created successfully', data: savedRequest });
@@ -70,6 +74,7 @@ const createBaptismRequest = async (req, res) => {
         res.status(error.statusCode || 500).json({ message: error.message || 'Internal server error' });
     }
 };
+
 const cancelBaptismRequest = async (req, res) => {
     try {
         const userEmail = req.user.email; // Assuming `userId` is available from authenticated user

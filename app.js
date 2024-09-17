@@ -10,7 +10,7 @@ import userRouter from "./router/user.router.js";
 import baptismRequestRouter from "./router/bastimRequest.router.js";
 import contactRouter from "./router/contact.router.js";
 const app = express()
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8001
 if (process.env.MODE_ENV === "development") {
     app.use(morgan("dev"))
     console.log(process.env.MODE_ENV)
@@ -19,6 +19,7 @@ app.use(express.json())
 app.set('view engine', 'ejs');
 app.use(cors())
 app.use(morgan())
+app.use(morgan('combined'));
 connection()
 app.use(globalError)
 app.use(userRouter)
