@@ -16,7 +16,7 @@ if (process.env.MODE_ENV === "development") {
     console.log(process.env.MODE_ENV)
 }
 const corsOptions = {
-    origin: 'https://minasatwasitsuadi.com', // Allow this origin
+    origin: ['https://minasatwasitsuadi.com', 'www.minasatwasitsuadi.com'], // Allow this origin
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
     credentials: true, // Allow credentials
 };
