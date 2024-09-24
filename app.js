@@ -15,6 +15,13 @@ if (process.env.MODE_ENV === "development") {
     app.use(morgan("dev"))
     console.log(process.env.MODE_ENV)
 }
+const corsOptions = {
+    origin: 'https://minasatwasitsuadi.com', // Allow this origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+    credentials: true, // Allow credentials
+};
+
+app.use(cors(corsOptions));
 app.use(express.json())
 app.set('view engine', 'ejs');
 app.use(cors())
