@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start:dev": "nodemon app.js",
-    "start:pro": "MODE_ENV=production node app.js"
+    "start:pro": "cross-env MODE_ENV=production node app.js"
   },
   "author": "",
   "license": "ISC",
