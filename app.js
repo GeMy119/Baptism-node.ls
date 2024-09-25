@@ -11,7 +11,7 @@ import baptismRequestRouter from "./router/bastimRequest.router.js";
 import contactRouter from "./router/contact.router.js";
 
 const app = express();
-const port = process.env.PORT || 8001;
+const port = process.env.PORT || 8002;
 
 // CORS configuration
 const corsOptions = {

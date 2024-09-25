@@ -78,6 +78,8 @@ const login = async (req, res) => {
     }
 };
 // end login
+const test = (req, res) => {
+    res.json({ message: 'test' })
+}
 
-
-export { register, login };
+export { register, login, test };
