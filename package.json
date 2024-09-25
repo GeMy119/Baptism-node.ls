@@ -6,21 +6,18 @@
   "type": "module",
   "scripts": {
     "start:dev": "nodemon app.js",
-    "start:pro": "cross-env MODE_ENV=production node app.js"
+    "start:pro": "MODE_ENV=production node app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0",
     "mongoose": "^8.5.1",
-    "morgan": "^1.10.0",
-    "nodemailer": "^6.9.15",
-    "uuid": "^10.0.0"
+    "nodemailer": "^6.9.15"
   }
 }
