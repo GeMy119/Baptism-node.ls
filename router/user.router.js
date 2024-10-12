@@ -8,7 +8,7 @@ const userRouter = express.Router()
 
 userRouter.post("/register", validate(registerValidationRules()), register)
 userRouter.post("/login", validate(loginValidationRules()), login)
-userRouter.post("/test", test)
+userRouter.get("/test", test)
 
 
 export default userRouter
