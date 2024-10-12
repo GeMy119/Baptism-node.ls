@@ -151,7 +151,7 @@ const cancelBaptismRequest = async (req, res) => {
         `;
 
         // Send email to the admin (replace 'admin@example.com' with the actual admin email)
-        await sendEmail('admin@example.com', adminEmailSubject, adminEmailHtml);
+        await sendEmail(process.env.EMAIL_USER, adminEmailSubject, adminEmailHtml);
 
         // Send a success response
         res.status(200).json({ message: 'تم إلغاء طلب التعميد بنجاح', data: baptismRequest });
