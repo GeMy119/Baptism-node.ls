@@ -40,6 +40,7 @@ const createBaptismRequest = async (req, res) => {
                 <p><strong>رقم الواتساب الخاص بمقدم الطلب:</strong> ${whatsAppUser}</p>
                 <p><strong>أسم مقدم الخدمة:</strong> ${nameOfTheServiceProvider}</p>
                 <p><strong>رقم الواتساب الخاص بمقدم الخدمة:</strong> ${whatsAppServicProvider}</p>
+                <p><strong>تفاصيل الاتفاق:</strong> ${agreementDetails}</p>
                 <p><strong>مبلغ التعميد:</strong> ${servicePrice} ريال</p>
                 <p><strong>فترة التعميد بالأيام:</strong> ${baptismPeriod}</p>
                 <p><strong>يوم انتهاء التعميد:</strong> ${theDayTheBaptismEnded}</p>
@@ -56,6 +57,7 @@ const createBaptismRequest = async (req, res) => {
                 <p><strong>رقم الواتساب الخاص بمقدم الطلب:</strong> ${whatsAppUser}</p>
                 <p><strong>أسم مقدم الخدمة:</strong> ${nameOfTheServiceProvider}</p>
                 <p><strong>رقم الواتساب الخاص بمقدم الخدمة:</strong> ${whatsAppServicProvider}</p>
+                <p><strong>تفاصيل الاتفاق:</strong> ${agreementDetails}</p>
                 <p><strong>مبلغ التعميد:</strong> ${servicePrice} ريال</p>
                 <p><strong>فترة التعميد بالأيام:</strong> ${baptismPeriod}</p>
                 <p><strong>يوم انتهاء التعميد:</strong> ${theDayTheBaptismEnded}</p>
