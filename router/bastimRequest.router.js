@@ -1,6 +1,6 @@
 import express from 'express';
 import validate from '../validation/globalValidation.js';
-import { cancelBaptismRequestValidationRules, createBaptismRequestValidationRules } from '../validation/baptismRequest.validation.js';
+import { cancleBaptismRequestValidationRules, createBaptismRequestValidationRules } from '../validation/baptismRequest.validation.js';
 import authenticateUser from '../config/auth.js';
 import { cancelBaptismRequest, createBaptismRequest } from '../controller/baptismRequest.controller.js';
 
@@ -29,7 +29,7 @@ baptismRequestRouter.post(
 baptismRequestRouter.post(
     '/cancelBaptism',
     authenticateUser, // Require authentication
-    validate(cancelBaptismRequestValidationRules()),
+    validate(cancleBaptismRequestValidationRules()),
     cancelBaptismRequest
 );
 
