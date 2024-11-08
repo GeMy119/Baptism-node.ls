@@ -10,7 +10,6 @@ import ApiError from '../utils/apiError.js';
  */
 const createBaptismRequest = async (req, res) => {
     try {
-        const userEmail = req.user.email; // Assuming `userId` is available from authenticated user
         const {
             applicantName,
             whatsAppUser,
@@ -30,25 +29,7 @@ const createBaptismRequest = async (req, res) => {
         // Generate the baptism number before saving
         const baptismNumber = await generatebaptismNumber();
 
-        // Prepare email content for the user
-        const emailSubject = 'طلب تعميد جديد';
-        const emailHtml = `
-            <div style="direction: rtl; font-family: Arial, sans-serif; width: 100%;">
-                <h1 style="text-align: center;">معلومات طلب تعميد</h1>
-                <p><strong>رقم التعميد:</strong> ${baptismNumber}</p>
-                <p><strong>أسم مقدم الطلب:</strong> ${applicantName}</p>
-                <p><strong>رقم الواتساب الخاص بمقدم الطلب:</strong> ${whatsAppUser}</p>
-                <p><strong>أسم مقدم الخدمة:</strong> ${nameOfTheServiceProvider}</p>
-                <p><strong>رقم الواتساب الخاص بمقدم الخدمة:</strong> ${whatsAppServicProvider}</p>
-                <p><strong>تفاصيل الاتفاق:</strong> ${agreementDetails}</p>
-                <p><strong>مبلغ التعميد:</strong> ${servicePrice} ريال</p>
-                <p><strong>فترة التعميد بالأيام:</strong> ${baptismPeriod}</p>
-                <p><strong>يوم انتهاء التعميد:</strong> ${theDayTheBaptismEnded}</p>
-                <p style="text-align: center;">© تعميد عبر منصة وسيط لخدمات التعميد.</p>
-            </div>
-        `;
-
-        // Prepare email content for admin
+        // Prepare email content for the admin
         const adminEmailSubject = 'تم تقديم طلب تعميد جديد';
         const adminEmailHtml = `
             <div style="direction: rtl; font-family: Arial, sans-serif; width: 100%;">
@@ -65,13 +46,34 @@ const createBaptismRequest = async (req, res) => {
             </div>
         `;
 
-        // Send email to the user
-        await sendEmail(userEmail, emailSubject, emailHtml);
-
-        // Send email to admin (replace 'admin@example.com' with your email)
+        // Send email to the admin
         await sendEmail(process.env.EMAIL_USER, adminEmailSubject, adminEmailHtml);
 
-        // After email is sent, create and save the BaptismRequest object
+        // If the user is logged in, prepare and send an email to the user
+        if (req.user) {
+            const userEmail = req.user.email;
+            const userEmailSubject = 'طلب تعميد جديد';
+            const userEmailHtml = `
+                <div style="direction: rtl; font-family: Arial, sans-serif; width: 100%;">
+                    <h1 style="text-align: center;">معلومات طلب تعميد</h1>
+                    <p><strong>رقم التعميد:</strong> ${baptismNumber}</p>
+                    <p><strong>أسم مقدم الطلب:</strong> ${applicantName}</p>
+                    <p><strong>رقم الواتساب الخاص بمقدم الطلب:</strong> ${whatsAppUser}</p>
+                    <p><strong>أسم مقدم الخدمة:</strong> ${nameOfTheServiceProvider}</p>
+                    <p><strong>رقم الواتساب الخاص بمقدم الخدمة:</strong> ${whatsAppServicProvider}</p>
+                    <p><strong>تفاصيل الاتفاق:</strong> ${agreementDetails}</p>
+                    <p><strong>مبلغ التعميد:</strong> ${servicePrice} ريال</p>
+                    <p><strong>فترة التعميد بالأيام:</strong> ${baptismPeriod}</p>
+                    <p><strong>يوم انتهاء التعميد:</strong> ${theDayTheBaptismEnded}</p>
+                    <p style="text-align: center;">© تعميد عبر منصة وسيط لخدمات التعميد.</p>
+                </div>
+            `;
+
+            // Send email to the user
+            await sendEmail(userEmail, userEmailSubject, userEmailHtml);
+        }
+
+        // Create and save the BaptismRequest object
         const newBaptismRequest = new BaptismRequest({
             applicantName,
             whatsAppUser,
@@ -97,9 +99,10 @@ const createBaptismRequest = async (req, res) => {
 };
 
 
+
 const cancelBaptismRequest = async (req, res) => {
     try {
-        const userEmail = req.user.email; // Assuming `userId` is available from authenticated user
+        // const userEmail = req.user.email; // Assuming `userId` is available from authenticated user
         const { baptismNumber, cancellationReason } = req.body;
 
         // Validate input data
@@ -120,8 +123,10 @@ const cancelBaptismRequest = async (req, res) => {
         await baptismRequest.save();
 
         // Prepare email content for the user
-        const emailSubject = 'إلغاء طلب التعميد';
-        const emailHtml = `
+        if (req.user) {
+            const userEmail = req.user.email;
+            const emailSubject = 'إلغاء طلب التعميد';
+            const emailHtml = `
             <div style="direction: rtl; font-family: Arial, sans-serif; width: 100%;">
                 <h1 style="text-align: center;">إلغاء طلب التعميد</h1>
                 <p>نأسف لإبلاغك بأنه تم إلغاء طلب التعميد رقم: ${baptismRequest.baptismNumber}.</p>
@@ -135,9 +140,9 @@ const cancelBaptismRequest = async (req, res) => {
             </div>
         `;
 
-        // Send email to the user
-        await sendEmail(userEmail, emailSubject, emailHtml);
-
+            // Send email to the user
+            await sendEmail(userEmail, emailSubject, emailHtml);
+        }
         // Prepare email content for the admin
         const adminEmailSubject = 'تم إلغاء طلب تعميد';
         const adminEmailHtml = `
